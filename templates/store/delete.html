@@ -1,0 +1,15 @@
+{% extends "base/delete.html" %}
+
+{% block cont %}
+
+    {% if page == 'delete_product' %}
+
+        <h4 class="card-title">Do you want to Delete "<code class="text-danger">{{obj.name}}</code>" </h4>
+
+    {% elif page == 'delete_sale' %}
+
+        <h4 class="card-title">Do you want to Delete "<code class="text-danger">{{obj.product}}</code>" </h4>
+
+    {% endif %}
+
+{% endblock  %}

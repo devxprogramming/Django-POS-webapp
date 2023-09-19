@@ -11,6 +11,9 @@ from django.contrib.auth.models import User
 from django.views.generic import DetailView
 
 def login_user(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')

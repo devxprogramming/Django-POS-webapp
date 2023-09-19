@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+
+
+{% block title %}Delete{% endblock  %}
+
+{% block content %}
+{% include "base/main_nav.html" %}
+{% include "base/side_nav.html" %}
+
+<div class="sale-container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card shadow">
+            <div class="card-body">
+                {% block cont %}
+                {% endblock  %}
+                <div class="card-text d-flex">
+                    <button class="btn btn-danger w-25" type="submit">Yes</button>
+                    <a href="#" class="ms-auto btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock  %}

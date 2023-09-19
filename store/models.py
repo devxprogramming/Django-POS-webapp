@@ -39,3 +39,5 @@ class Sale(models.Model):
     issued_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     date_issued = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return self.product

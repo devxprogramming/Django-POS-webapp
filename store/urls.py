@@ -12,4 +12,6 @@ urlpatterns = [
     path('all-sales/', SaleList.as_view(), name='all_sales'),
     path('product-detail/<pk>', ProductDetail.as_view(), name='product_detail'),
     path('sale-detail/<pk>', SaleDetail.as_view(), name='sale_detail'),
+    path('delete-sale/<pk>', views.DeleteSale.as_view(), name='delete_sale'),
+    path('delete-product/<pk>', views.DeleteProduct.as_view(), name='delete_product'),
 ]

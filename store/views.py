@@ -110,5 +110,27 @@ class SaleDetail(DetailView):
         return context
 
 
+class DeleteSale(DeleteView):
+    model = Sale
+    template_name = "store/delete.html"
+    context_object_name = 'obj'
+    success_url = '/store/all-sales/'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = 'delete_sale'
+        return context
+
+class DeleteProduct(DeleteView):
+    model = Product
+    template_name = 'store/delete.html'
+    context_object_name = 'obj'
+    success_url = '/store/all-products/'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page"] = 'delete_product' 
+        return context
+    
 
 

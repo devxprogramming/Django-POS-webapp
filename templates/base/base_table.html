@@ -42,6 +42,7 @@
                   <th scope="col">Manufact. Date</th>
                   <th scope="col">Expiry Date</th>
                   <th scope="col">Status</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -59,6 +60,12 @@
                   <td>{{product.expiry_date|date}}</td>
                   <td>
                     <span class="badge bg-danger">{{product.status|truncatechars:11}}</span>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <a href="{% url 'delete_product' product.id %}" class="btn btn-danger btn-sm">Delete</a>
+                      <a href="#" class="ms-md-1 btn btn-warning btn-sm">Update</a>
+                    </div>
                   </td>
                 </tr>
                 {% endfor %}
@@ -111,12 +118,13 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Product Name</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Current Quantity</th>
-                  <th>Issued Quantity</th>
+                  <th scope="col">Descript.</th>
+                  <th scope="col">Curnt Quant</th>
+                  <th>Issued Quant</th>
                   <th scope="col">Manufact. Date</th>
                   <th scope="col">Expiry Date</th>
                   <th scope="col">Status</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,10 +139,16 @@
                   <td>{{sale.product.description|truncatechars:10}}</td>
                   <td>{{sale.product.quantity}}</td>
                   <td>{{sale.quantity}}</td>
-                  <td>{{sale.product.manufacturing_date}}</td>
+                  <td>{{sale.product.manufacturing_date|date}}</td>
                   <td>{{sale.product.expiry_date|date}}</td>
                   <td>
                     <span class="badge bg-danger">{{sale.product.status|truncatechars:11}}</span>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <a href="{% url 'delete_sale' sale.id %}" class="btn btn-danger btn-sm">Delete</a>
+                      <a href="#" class="ms-md-1 btn btn-warning btn-sm">Update</a>
+                    </div>
                   </td>
                 </tr>
                 {% endfor %}
