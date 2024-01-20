@@ -1,0 +1,186 @@
+{% extends "base/base.html" %}
+
+{% block title %}View Product{% endblock  %}
+
+
+
+{% block content %}
+
+{% include "base/main_nav.html" %}
+
+{% include "base/side_nav.html" %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Sale Detail</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url "dashboard" %}">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Sale</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+
+            <div class="card stick">
+                <div class="card-body profile-card pt-4 d-flex flex-column">
+
+                    {% comment %} <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> {% endcomment %}
+                    <small class="fw-bold">
+                        Product Name: <span class="badge bg-success text-center">{{sale.product.name|capfirst}}</span>
+                    </small>
+                    <small class="">
+                        <b>Sale ID:</b> <a href="{% url  "sale_detail" sale.id %}" class="">#{{sale.id}}</a>
+                    </small>
+                    <small><b>Issued By:</b> {{sale.issued_by}}</small>
+                    <small><b>Issued on:</b> {{sale.date_issued|date}}</small>
+                </div>
+            </div>
+
+            <div class="card ">
+                <div class="card-body profile-card pt-4 d-flex flex-column">
+                    <div class="card-title">Customer Info</div>
+                    {% comment %} <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> {% endcomment %}
+                    <div class="card-text fw-bold">
+                        Customer Name: <span class="badge bg-success text-center">{{sale.customer_name|capfirst}}</span>
+                    </div>
+                    <div class="card-text">
+                        <i class="bx bx-phone"></i>{{sale.phone}}
+                    </div>
+                    <small><b>Customer's Address:</b> {{sale.address|truncatewords:3}}</small>
+                </div>
+            </div>
+
+            <div class="card ">
+                <div class="card-body profile-card pt-4 d-flex flex-column">
+                    <div class="card-title">Sale Info</div>
+                    {% comment %} <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> {% endcomment %}
+                    <div class="card-text fw-bold">
+                        Product Bought: <span class="badge bg-success text-center">{{sale.product.name|capfirst}}</span>
+                    </div>
+                    <div class="card-text fw-bold">
+                        Quantity Bought: <span class="badge bg-success text-center">{{sale.quantity}}</span>
+                    </div>
+                    <div class="card-text fw-bold">
+                        Product Bought: <span class="badge bg-success text-center">{{sale.customer_name|capfirst}}</span>
+                    </div>
+                    <small><b>Customer's Address:</b> {{sale.address|truncatewords:3}}</small>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <h5 class="card-title">Description</h5>
+                  <p class="small fst-italic">{{sales.description|truncatewords:20}}</p>
+
+                  <h5 class="card-title">Sale Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Product Name</div>
+                    <div class="col-lg-9 col-md-8"><b>{{sale.product.name}}</b></div>
+                  </div>
+
+                  <div class="row">
+                    {% if product_cat %}
+                    <div class="col-lg-3 col-md-4 label">
+                        {% if product_cat_count > 1 %}
+                        Categories
+                        {% else %}
+                        Category
+                        {% endif %}
+                    </div>
+                    
+                        <div class="col-lg-9 col-md-8">
+                            {% for category in sales.category.all %}
+                                <span class="badge bg-success">{{category.name}}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Price</div>
+                    <div class="col-lg-9 col-md-8">₵{{sale.product.price}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Quantity Issued</div>
+                    <div class="col-lg-9 col-md-8">
+                        {% if sale.quantity < 2 %}
+                            <span class="badge bg-danger">{{sale.quantity}} pc{{ sale.quantity|pluralize }}</span>
+                        {% else %}
+                            <span class="badge bg-success">{{sale.quantity}} pc{{ sale.quantity|pluralize }}</span>
+                        {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Current Stock Quantity</div>
+                    <div class="col-lg-9 col-md-8">
+                        {% if sale.product.quantity < 10 %}
+                            <span class="badge bg-danger">{{sale.product.quantity}} pc{{ sale.product.quantity|pluralize }}</span>
+                        {% else %}
+                            <span class="badge bg-success">{{sale.product.quantity}} pc{{ sale.product.quantity|pluralize }}</span>
+                        {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Manufacturing Date</div>
+                    <div class="col-lg-9 col-md-8">{{sale.product.manufacturing_date|date}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Expiry Date</div>
+                    <div class="col-lg-9 col-md-8">{{sale.product.expiry_date|date}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Status</div>
+                    <div class="col-lg-9 col-md-8">
+                      {% if sales.status == 'Active' %}
+                        <span class="badge rounded-pill bg-success">{{sale.product.status}}</span>
+                      {% else %}
+                        <span class="badge rounded-pill bg-danger">{{sale.product.status|truncatechars:11}}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Created By</div>
+                    <div class="col-lg-9 col-md-8">{{sale.issued_by}}</div>
+                  </div>
+
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+{% endblock  %}

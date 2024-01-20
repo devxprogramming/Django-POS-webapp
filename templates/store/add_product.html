@@ -1,0 +1,56 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Add Product{% endblock  %}
+
+
+{% block content %}
+{% include "base/main_nav.html" %}
+{% include "base/side_nav.html" %}
+
+<div class="sale-container">
+  <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Make a Sale</h5>
+  
+        <!-- No Labels Form -->
+        <form class="row g-3" method="POST">
+          {% csrf_token %}
+          <div class="col-md-12">
+            {% render_field form.name type="text" class="form-control" placeholder="Product Name" %}
+          </div>
+          <div class="col-md-12">
+            {% render_field form.description type="text" class="form-control" placeholder="Product Description" %}
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              {% render_field form.category  class="form-select" placeholder="Select Product"%}
+            </div>
+          </div>
+          <div class="col-md-12">
+            {% render_field form.price type="text" class="form-control" placeholder="Product Price" %}
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              {% render_field form.quantity type="number" class="form-control" placeholder="Product Quantity"%}
+              <label for="floatingName">Quantity</label>
+            </div>
+          </div>
+          <div class="col-12">
+            {% render_field form.description type="text" class="form-control" placeholder="Address" %}
+          </div>
+   
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Issued By: {{request.user}}" disabled>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary w-100">Add</button>
+          </div>
+        </form><!-- End No Labels Form -->
+  
+      </div>
+  </div>
+</div>
+
+
+{% endblock  %}

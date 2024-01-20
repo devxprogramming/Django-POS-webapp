@@ -1,0 +1,153 @@
+{% if page == 'all_products' %}
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Data Tables</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item">Tables</li>
+        <li class="breadcrumb-item active">Data</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Datatables</h5>
+            <p>
+              Add lightweight datatables to your project with using the
+              <a
+                href="https://github.com/fiduswriter/Simple-DataTables"
+                target="_blank"
+                >Simple DataTables</a
+              >
+              library. Just add <code>.datatable</code> class name to any table
+              you wish to conver to a datatable
+            </p>
+
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Manufact. Date</th>
+                  <th scope="col">Expiry Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in model %}
+                <tr>  
+                  <th scope="row">
+                    <a href="{% url "product_detail" product.id %}">{{product.id}}</a>
+                  </th>
+                  <td>
+                    <a href="{% url "product_detail" product.id %}">{{product.name}}</a>
+                  </td>
+                  <td>{{product.description|truncatechars:10}}</td>
+                  <td>{{product.quantity}}</td>
+                  <td>{{product.manufacturing_date}}</td>
+                  <td>{{product.expiry_date|date}}</td>
+                  <td>
+                    <span class="badge bg-danger">{{product.status|truncatechars:11}}</span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+{% elif page == 'all_sales' %}
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Sale Table</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+        <li class="breadcrumb-item">Tables</li>
+        <li class="breadcrumb-item active">All Sales</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">All Sales </h5>
+            <p>
+              Add lightweight datatables to your project with using the
+              <a
+                href="https://github.com/fiduswriter/Simple-DataTables"
+                target="_blank"
+                >Simple DataTables</a
+              >
+              library. Just add <code>.datatable</code> class name to any table
+              you wish to conver to a datatable
+            </p>
+
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Current Quantity</th>
+                  <th>Issued Quantity</th>
+                  <th scope="col">Manufact. Date</th>
+                  <th scope="col">Expiry Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sale in sales %}
+                <tr>  
+                  <th scope="row">
+                    <a href="{% url "sale_detail" sale.id %}">{{sale.id}}</a>
+                  </th>
+                  <td>
+                    <a href="{% url "product_detail" sale.product.id %}">{{sale.product.name}}</a>
+                  </td>
+                  <td>{{sale.product.description|truncatechars:10}}</td>
+                  <td>{{sale.product.quantity}}</td>
+                  <td>{{sale.quantity}}</td>
+                  <td>{{sale.product.manufacturing_date}}</td>
+                  <td>{{sale.product.expiry_date|date}}</td>
+                  <td>
+                    <span class="badge bg-danger">{{sale.product.status|truncatechars:11}}</span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% else %}
+<h1>Move out</h1>
+
+{% endif %}

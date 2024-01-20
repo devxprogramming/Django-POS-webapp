@@ -1,0 +1,11 @@
+# Ignore pycache
+core/__pycache__/
+
+# Ignore migrations
+store/migrations/
+
+# removinging user migrations
+store/migrations/
+
+
+store/static/
