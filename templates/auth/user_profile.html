@@ -1,19 +1,18 @@
 {% extends "base/base.html" %}
 
-{% block title %}View Product{% endblock  %}
-
+{% block title %}User Profile{% endblock  %}
 
 
 {% block content %}
 
 {% include "base/main_nav.html" %}
-
 {% include "base/side_nav.html" %}
+
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Product Detail</h1>
+      <h1>User Profile Details</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url "dashboard" %}">Home</a></li>
@@ -31,16 +30,41 @@
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                     {% comment %} <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> {% endcomment %}
-                    <small class="fw-bold">
-                        Product Name: <span class="badge bg-success text-center">{{product.name|capfirst}}</span>
+                    <small class="me-auto fw-bold">
+                        Profile Name: <span class="badge bg-success text-center">{{user.username|capfirst}}</span>
                     </small>
-                    <small class="">
-                        Product ID: <a href="{% url  "product_detail" product.id %}" class="">#{{product.id}}</a>
+                    <small class="me-auto">
+                        User Profile ID: <a href="{% url  "user_profile" user.id %}" class="">#{{user.id}}</a>
                     </small>
                 </div>
             </div>
 
         </div>
+
+        <div class="row">
+            <div class="col-xl-4">
+    
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+    
+                        {% comment %} <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> {% endcomment %}
+                        <small class="me-auto">
+                            Product Sold:
+                            <span class="badge bg-secondary">{{ sold_by.count }} item{{ sold_by.count|pluralize }}.</span>
+                        </small>
+                        <text class="me-auto">
+                            Sold Item List:
+                            <ul>
+                                {% for item in sold_by %}
+                                <li>{{item.product.name}}</li>
+                                {% endfor %}
+                            </ul>
+
+                        </text>
+                    </div>
+                </div>
+    
+            </div>
 
         <div class="col-xl-8">
 
@@ -63,8 +87,8 @@
                   <h5 class="card-title">Product Details</h5>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Product Name</div>
-                    <div class="col-lg-9 col-md-8"><b>{{product.name}}</b></div>
+                    <div class="col-lg-3 col-md-4 label ">User Profile Name</div>
+                    <div class="col-lg-9 col-md-8"><b>{{user.username}}</b></div>
                   </div>
 
                   <div class="row">

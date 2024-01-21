@@ -47,7 +47,7 @@ class CreatProduct(FormView):
 class CreateSale(LoginRequiredMixin,FormView):
     template_name = 'store/add_sale.html'
     form_class = SaleForm
-    success_url = '/store/all-products/'
+    success_url = '/store/all-sales/'
     login_url = '/auth/login/'
     redirect_field_name = 'next'
     context_object_name = 'sales'
