@@ -7,5 +7,4 @@ store/migrations/
 # removinging user migrations
 store/migrations/
 
-
-store/static/
+env

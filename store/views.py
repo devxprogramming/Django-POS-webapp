@@ -98,6 +98,7 @@ class ProductDetail(DetailView):
         return context
 
 
+
 class SaleDetail(DetailView):
     model = Sale
     template_name = 'store/view_sale.html'
@@ -107,4 +108,7 @@ class SaleDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["page"] = 'sale_detail'
         return context
-    
+
+
+
+
