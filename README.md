@@ -38,3 +38,8 @@ Aspects that can be configured: 🤓
 # Contributions 🤝
 
 Contributions welcome! Please open an issue or pull request on GitHub. 🙏
+
+![dashboard](https://github.com/devxprogramming/Django-POS-webapp/assets/122728594/36f325ef-5105-4b16-92a0-e5b9ac43576b)
+
+![add_sale](https://github.com/devxprogramming/Django-POS-webapp/assets/122728594/51e6f19e-22a5-4c77-ac14-e87edf8ff5cd)
+
