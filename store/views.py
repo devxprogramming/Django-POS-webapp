@@ -150,8 +150,6 @@ class UpdateProduct(UpdateView):
         context['created_by'] = Product.objects.all()
         return context
     
-    def get(self):
-        get_object_or_404(Product, pk=1)
             
     
 
