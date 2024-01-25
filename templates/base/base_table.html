@@ -61,12 +61,18 @@
                   <td>
                     <span class="badge bg-danger">{{product.status|truncatechars:11}}</span>
                   </td>
+                  {% if product.created_by == request.user %}
                   <td>
                     <div class="d-flex">
                       <a href="{% url 'delete_product' product.id %}" class="btn btn-danger btn-sm">Delete</a>
-                      <a href="#" class="ms-md-1 btn btn-warning btn-sm">Update</a>
+                      <a href="{% url 'update_product' product.id %}" class="ms-md-1 btn btn-warning btn-sm">Update</a>
                     </div>
                   </td>
+                  {% else %}
+                  <td>
+                    <span class="btn btn-sm btn-danger disabled">No permitted</span>
+                  </td>
+                  {% endif %}
                 </tr>
                 {% endfor %}
               </tbody>
@@ -147,7 +153,7 @@
                   <td>
                     <div class="d-flex">
                       <a href="{% url 'delete_sale' sale.id %}" class="btn btn-danger btn-sm">Delete</a>
-                      <a href="#" class="ms-md-1 btn btn-warning btn-sm">Update</a>
+                      <a href="{% url 'update_sale' sale.id %}" class="ms-md-1 btn btn-warning btn-sm">Update</a>
                     </div>
                   </td>
                 </tr>

@@ -11,7 +11,11 @@
 <div class="sale-container">
   <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Make a Sale</h5>
+        {% if page == 'update_product' %}
+        <h5 class="card-title">Update Product</h5>
+        {% else %}
+        <h5 class="card-title">Add Product</h5>
+        {% endif %}
   
         <!-- No Labels Form -->
         <form class="row g-3" method="POST">

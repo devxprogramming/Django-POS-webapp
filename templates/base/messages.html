@@ -1,0 +1,13 @@
+{% if messages %}
+
+{% for message in messages %}
+<div
+    class="alert alert-primary"
+    role="alert"
+>
+    <strong>{{message}}</strong>
+</div>
+
+{% endfor %}
+
+{% endif %}

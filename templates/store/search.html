@@ -1,0 +1,90 @@
+{% extends "base/base.html" %}
+
+
+{% block title %}Search Result{% endblock  %}
+
+{% block content %}
+{% include "base/main_nav.html" %}
+{% include "base/side_nav.html" %}
+
+
+<div class="main" id="main">
+    <div class="search-mt container">
+        <div class="row">
+            <p>{{sales_count}} sale{{sales_count|pluralize}} available</p>
+            {% if sales or products%}
+                <!--Sale Display-->
+                    <h6>Sales</h6>
+                    <hr>
+                    {% for sale in sales %}
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">
+                                        <a href="{% url "sale_detail" sale.id %}" class="badge bg-success text-light">#{{sale.id}}</a> |
+                                        <a href="{% url 'product_detail' sale.product.id %}">{{sale.product}}</a>
+                                    </h3>
+                                    <p class="card-text">Date Issued: <span class='badge bg-secondary'>{{sale.date_issued|date}}</span></p>
+                                    <p class="card-text">Issued By: <span class="badge bg-danger">{{sale.issued_by.username}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <hr>
+                <!--Product Display-->
+                    <h6>Products</h6>
+                    <hr>
+                    <p>{{products_count}} product{{products_count|pluralize}} available</p>
+                    {% for product in products %}
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">
+                                        <a href="{% url "product_detail" product.id %}" class="badge bg-success text-light">#{{product.id}}</a> |
+                                        <a href="{% url 'product_detail' product.id %}">{{product.name}}</a>
+                                    </h3>
+                                    <p class="card-text">MFD. Date: <span class="badge bg-secondary">{{product.manufacturing_date|date}}</span></p>
+                                    <p class="card-text">EXP. Date: <span class="badge bg-secondary">{{product.expiry_date|date}}</span></p>
+                                    <p class="card-text">Created By: <span class="badge bg-danger">{{product.created_by}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+            {% else %}
+                <h4 class="text-center">No seach result found for "{{query}}"</h4>
+            {% endif %}
+            
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+{% endblock  %}
+
+
+<div class="search-mt container">
+    <div class="row">
+        {% if sales %}
+            {% for sale in sales %}
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <a href="{% url "sale_detail" sale.id %}" class="badge bg-success text-light">#{{sale.id}}</a> |
+                            <a href="{% url 'product_detail' sale.product.id %}">{{sale.product}}</a>
+                        </h3>
+                        <p class="card-text">{{sale.date_issued}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h1>Nothing Found</h1>
+        {% endif %}
+        
+    </div>
+    
+</div>

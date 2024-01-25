@@ -18,7 +18,10 @@
           <form class="row g-3" method="POST">
             {% csrf_token %}
             <div class="col-md-12">
-              {% render_field form.customer_name type="text" class="form-control" placeholder="Customer Name" %}
+              <div class="form-floating">
+                {% render_field form.customer_name type="text" class="form-control" placeholder="Customer Name" %}
+                <label for="id_product">{{form.customer_name.label}}</label>
+              </div>
             </div>
             <div class="col-md-6">
               <div class="form-floating">
@@ -33,13 +36,22 @@
               </div>
             </div>
             <div class="col-12">
-              {% render_field form.address type="text" rows='3' cols='3' class="form-control" placeholder="Address" %}
+              <div class="form-floating">
+                {% render_field form.address type="text" rows='3' cols='3' class="form-control" placeholder="Address" %}
+                <label for="floatingName">{{form.address.label}}</label>
+              </div>
             </div>
             <div class="col-md-6">
-              {% render_field form.phone type="text" class="form-control" placeholder="Phone" %}
+              <div class="form-floating">
+                {% render_field form.phone type="text" class="form-control" placeholder="Phone" %}
+                <label for="floatingName">{{form.phone.label}}</label>
+              </div>
             </div>
             <div class="col-md-6">
-              <input type="text" class="form-control" placeholder="Issued By: {{request.user}}" disabled>
+              <div class="form-floating">
+                <input type="text" class="form-control" placeholder="Issued By: {{request.user}}" disabled>
+                <label for="floatingName">{{request.user}}</label>
+              </div>
             </div>
             <div class="text-center">
               <button type="submit" class="btn btn-primary w-100">Add</button>

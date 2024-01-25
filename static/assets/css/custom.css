@@ -5,3 +5,8 @@
     left: 60%;
     transform: translate(-50%, -50%);
 }
+
+
+.no-permitted:is(:hover, :focus){
+    cursor: not-allowed;
+}

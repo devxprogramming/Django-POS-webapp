@@ -1,10 +1,15 @@
-from typing import Any, Dict
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Product, Sale
 
 from django.utils import timezone
+
+# Search Function Imports
+from django.db.models import Q
+
+# Import Message Framework
+from django.contrib import messages
 
 # Forms imports
 from .forms import ProductForm, SaleForm
@@ -24,10 +29,11 @@ class Dashboard(LoginRequiredMixin, ListView):
     login_url = '/auth/login/'
     redirect_field_name = 'next'
     
-    def get_context_data(self, **kwargs: Any):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'dashboard'
-        # context['products'] = Product.objects.all()
+        context['products'] = Product.objects.all()
+        context['sales'] = Sale.objects.all()
         return context
     
     
@@ -70,7 +76,7 @@ class ProductList(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'store/all_products.html'
     
-    def get_context_data(self, **kwargs: Any):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'all_products'
         context['model'] = Product.objects.all()
@@ -90,7 +96,7 @@ class ProductDetail(DetailView):
     model = Product
     template_name = 'store/view_product.html'
     context_object_name = 'product'
-    def get_context_data(self, **kwargs: Any):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page'] = 'product_detail'
         context['product_cat'] = context['product'].category.all()
@@ -131,6 +137,57 @@ class DeleteProduct(DeleteView):
         context = super().get_context_data(**kwargs)
         context["page"] = 'delete_product' 
         return context
+
+class UpdateProduct(UpdateView):
+    model = Product
+    template_name = 'store/add_product.html'
+    success_url = '/store/all-products/'
+    form_class = ProductForm
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page"] = 'update_product'
+        context['created_by'] = Product.objects.all()
+        return context
+    
+    def get(self):
+        get_object_or_404(Product, pk=1)
+            
+    
+
+class UpdateSale(UpdateView):
+    model = Sale
+    template_name = 'store/add_sale.html'
+    success_url = '/store/all-sales/'
+    form_class = SaleForm
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page"] = 'update_sale'
+        return context
     
 
 
+def search_func(request):
+    query = request.GET.get('query') if request.GET.get('query') != None else ''
+    
+    sales = Sale.objects.filter(
+        Q(product__name__icontains=query) |
+        Q(address__icontains=query) |
+        Q(issued_by__username__icontains=query)
+    )
+    products = Product.objects.filter(
+        Q(name__icontains=query) |
+        Q(created_by__username__icontains=query)
+    )
+    sales_count = sales.count()
+    products_count = products.count()
+    
+    context = {
+        'sales':sales,
+        'products':products,
+        'sales_count':sales_count,
+        'products_count':products_count,
+        'query':query,
+    }
+    return render(request, 'store/search.html', context)
